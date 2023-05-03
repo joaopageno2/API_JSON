@@ -1,14 +1,3 @@
-//npm install jest
-
-////Para configurar o jest como script de teste deve-se editar o 'package.json'
-//No agrupamento "scripts": {
-//    "test": "echo \"Error: no test specified\" && exit 1"
-//  }, alterar para:
-//"scripts": {
-//    "test": "jest"
-//  },
-//Para executar os testes:
-//npm test
 
 const axios = require('axios');
 const { buscarEndereco } = require('./testePoke');
@@ -39,11 +28,11 @@ describe('Teste da função buscarPokemon', () => {
     expect(axios.get).toHaveBeenCalledWith('https://pokeapi.co/api/v2/pokemon?limit=1&offset=37');
   });
 
-  it('Deve lançar um erro para um CEP inválido', async () => {
-    const errorMessage = 'Não foi possível obter o endereço a partir do CEP informado';
+  it('Deve lançar um erro ', async () => {
+    const errorMessage = 'Não foi possível obter o nome desse pokemon';
     axios.get.mockRejectedValue(new Error(errorMessage));
 
     await expect(buscarEndereco('12345-678')).rejects.toThrow(errorMessage);
-    expect(axios.get).toHaveBeenCalledWith('https://viacep.com.br/ws/12345-678/json/');
+    expect(axios.get).toHaveBeenCalledWith('https://pokeapi.co/api/v2/pokemon/20000/');
   });
 });
